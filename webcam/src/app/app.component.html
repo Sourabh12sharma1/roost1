@@ -1,0 +1,60 @@
+<div class="text-center">
+  <h1>
+    Face Emotion
+  </h1>
+
+  <div class="col-sm-6 float-left" *ngIf="!webcamImage && !selectedFile">
+      <webcam [height]="500" [width]="640" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+              [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
+              [videoOptions]="videoOptions"
+              [imageQuality]="1"
+              (cameraSwitched)="cameraWasSwitched($event)"
+              (initError)="handleInitError($event)"
+      ></webcam>
+      <br/>
+      <button class="actionBtn" (click)="triggerSnapshot();">Take A Snapshot</button>
+
+      <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+      <button class="actionBtn ml-2" (click)="fileInput.click()">Select File</button>
+
+    <!-- <button class="actionBtn" (click)="toggleWebcam();">Toggle Webcam</button> -->
+    <!-- <br/> -->
+    <!-- <button class="actionBtn" (click)="showNextWebcam(true);" [disabled]="!multipleWebcamsAvailable">Next Webcam</button> -->
+    <!-- <input id="cameraSwitchCheckbox" type="checkbox" [(ngModel)]="allowCameraSwitch"><label for="cameraSwitchCheckbox">Allow Camera Switch</label>
+    <br/>
+    DeviceId: <input id="deviceId" type="text" [(ngModel)]="deviceId" style="width: 500px">
+    <button (click)="showNextWebcam(deviceId);">Activate</button> -->
+  </div>
+  <div class="snapshot col-sm-6 float-left" *ngIf="selectedFile">
+    <img [src]="selectedFile" style="min-width: 640px"/>
+    <br>
+    <button class="actionBtn" (click)="resetShot();">Re-Take</button>
+    <button class="actionBtn ml-2" (click)="getPrediction();">Prediction</button>
+  </div>
+
+  <div class="d-flex justify-content-center col-sm-4 float-left" *ngIf="selectedFile">
+    <div class="w-75" *ngIf="(predictionData | json) != '{}' && !loading">
+      <h4>
+        Prediction
+      </h4>
+      <div class="w-100 float-left" *ngFor="let item of predictionData | keyvalue">
+        <div class="float-left col-sm-3">
+          <span>
+            {{item.key | titlecase}}
+          </span>
+          <span class="mood {{item.key}}"></span>
+        </div>
+        <div class="float-left col-sm-9">
+            <ng5-slider class="custom-slider" [(value)]="item.value" [options]="options"></ng5-slider>
+          <!-- <span class="font-weight-bold purple-text mr-2 mt-1">0</span>
+          <input class="border-0" type="range" min="0" max="100" class="w-75" [value]="item.value" [disabled]="true" />
+          <span class="font-weight-bold purple-text ml-2 mt-1">100</span> -->
+        </div>
+      </div>
+    </div>
+    <div class="spinner-border" role="status"*ngIf="loading">
+      <span class="sr-only">Loading...</span>
+    </div>      
+  </div>
+
+

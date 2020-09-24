@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+.custom-slider.ng5-slider .ng5-slider-bar {
+    height: 8px;
+}
+.custom-slider.ng5-slider[disabled] {
+    cursor: default;
+}
+.custom-slider.ng5-slider[disabled] .ng5-slider-pointer {
+    cursor: default;
+    background-color: #537bda;
+}
+.custom-slider.ng5-slider .ng5-slider-bubble {
+    color: #537bda;
+}
+.mood {
+    height: 35px;
+    width: 50px;
+    display: inline-block;
+}
+.mood.angry {
+    background: url(assets/moods.png) -138px -10px;
+}
+.mood.disgust {
+    background: url(assets/moods.png) -330px -10px;
+}
+.mood.happy {
+    background: url(assets/moods.png) -13px -10px;
+}
+.mood.neutral {
+    background: url(assets/moods.png) -390px -10px;
+}
+.mood.sad {
+    background: url(assets/moods.png) -73px -10px;
+}
+.mood.scared {
+    background: url(assets/moods.png) 190px -10px;
+}
+.mood.surprised {
+    background: url(assets/moods.png) -202px -10px;
+}
